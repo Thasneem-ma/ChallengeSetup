@@ -26,7 +26,7 @@ export  async function POST (request){
 
 export async function GET(){
     try {
-        const data = await Challenger.find();
+        const data = await Challenger.find().sort({ timeStamp: -1 });
         return NextResponse.json(data, {status: 200});
     } catch (error) {
         console.error('Failed to fetch data',error);

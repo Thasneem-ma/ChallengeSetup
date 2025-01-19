@@ -77,7 +77,7 @@ function RegForm() {
     <div className='grid grid-cols-2 gap-4'>
 
       <div className='bg-black text-white p-1.5 rounded'>
-        <h1>Price For Kg</h1>
+        <h1>Price For 1 Kg</h1>
         <p className='font-semibold text-lg'>500/-</p>
       </div>
       <div className='bg-black text-white p-1.5 rounded'>

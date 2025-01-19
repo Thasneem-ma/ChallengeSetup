@@ -7,7 +7,7 @@ await connectToDB();
 
 export async function GET(){
     try {
-        const data = await Challenger.find({Delivered: false});
+        const data = await Challenger.find({Delivered: false}).sort({ timeStamp: -1 });;
 
         return NextResponse.json(data, {status: 200});
     } catch (error) {
