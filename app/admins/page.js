@@ -25,7 +25,7 @@ function Page() {
     const getChallengersData = async() => {
         try {
 
-            const res = await axios.get('/api/formsubmition')
+            const res = await axios.get('/api/formsubmission')
             const data = res.data;
             setChallengers(data);
 
@@ -79,15 +79,15 @@ function Page() {
 
         <div className="grid grid-cols-2 gap-2">
             <div className='bg-black text-white rounded-lg p-2 pl-3'>
-                <p className='text-lg leading-5'>Submition Count</p>
+                <p className='text-lg leading-5'>Submission Count</p>
                 <p className='font-semibold text-4xl'>{challengers.length}</p>
-                <Link href={'/admins/submition'} className='flex gap-1 text-sm items-center mt-2'>
+                <Link href={'/admins/submission'} className='flex gap-1 text-sm items-center mt-2'>
                 <FaRegEye/>
                 <p>View</p>
                 </Link>
             </div>
             <div className='bg-black text-white rounded-lg p-2 pl-3'>
-                <p className='text-lg leading-5'>Paid Submitions</p>
+                <p className='text-lg leading-5'>Paid Submissions</p>
                 <p className='font-semibold text-4xl'>{paid}</p>
                 <Link href={'/admins/paid'} className='flex gap-1 text-sm items-center mt-2'>
                 <FaRegEye/>

@@ -12,11 +12,14 @@ function Page () {
     const price = prices.challenge
 
     const [paidChallengers, setPaidChallengers] = useState([])
+    const [originalPaidChallengers, setOriginalPaidChallengers] = useState([])
+    const [search, setSearch] = useState('');
 
     const getPaidChallenger = async ()=>{
         try {
             const res = await axios.get('/api/paidChallenger')
             const data = res.data
+            setOriginalPaidChallengers(data)
             setPaidChallengers(data)
 
         } catch (error) {
@@ -27,7 +30,24 @@ function Page () {
 
     useEffect(()=>{
         getPaidChallenger();
-    },[])
+    },[]);
+
+    const handleSearch = (e) => {
+        const term = e.target.value.toLowerCase();
+        setSearch(term);
+
+        if (term === '') {
+          // Reset to the original data when the search term is empty
+          setPaidChallengers(originalPaidChallengers);
+        } else {
+          const filtered = originalPaidChallengers.filter(
+            (challenger) =>
+              challenger.name.toLowerCase().includes(term) ||
+              challenger.mobile.toString().includes(term) // Convert mobile to a string
+          );
+          setPaidChallengers(filtered);
+        }
+      };
 
 
 
@@ -40,12 +60,15 @@ function Page () {
 
     <div className=" ">
     <p>Date Challenge</p>
-    <h1 className="font-semibold text-3xl leading-8">Submition <br /> Summary</h1>
+    <h1 className="font-semibold text-3xl leading-8">Submission <br /> Summary</h1>
     </div>
 
     <div className='bg-gray-100 flex gap-2 w-full rounded-lg p-1.5 shadow-sm border items-center text-gray-600'>
             <FaSearch/>
-            <input className='bg-transparent w-full outline-none border-none' placeholder='Search' type="text"/>
+            <input
+            value={search}
+            onChange={handleSearch}
+            className='bg-transparent w-full outline-none border-none' placeholder='Search' type="text"/>
         </div>
 
     <table className=' space-y-2 table-auto w-full'>

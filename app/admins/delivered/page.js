@@ -7,13 +7,16 @@ import {FaHome, FaSearch} from "react-icons/fa";
 
 function Page() {
 
-    const [deliveredChallengers, setDeliveredChallengers] = useState([])
+    const [deliveredChallengers, setDeliveredChallengers] = useState([]);
+    const [originalDeliveredChallengers, setOriginalDeliveredChallengers] = useState([]);
+    const [search, setSearch] = useState('');
 
     const getPaidChallenger = async ()=>{
         try {
             const res = await axios.get('/api/delivered')
             const data = res.data
-            setDeliveredChallengers(data)
+            setOriginalDeliveredChallengers(data);
+            setDeliveredChallengers(data);
 
         } catch (error) {
             console.log('failed to fetch pending challengers data',error);
@@ -23,7 +26,24 @@ function Page() {
 
     useEffect(()=>{
         getPaidChallenger();
-    },[])
+    },[]);
+
+    const handleSearch = (e) => {
+        const term = e.target.value.toLowerCase();
+        setSearch(term);
+
+        if (term === '') {
+          // Reset to the original data when the search term is empty
+          setDeliveredChallengers(originalDeliveredChallengers);
+        } else {
+          const filtered = originalDeliveredChallengers.filter(
+            (challenger) =>
+              challenger.name.toLowerCase().includes(term) ||
+              challenger.mobile.toString().includes(term) // Convert mobile to a string
+          );
+          setDeliveredChallengers(filtered);
+        }
+      };
 
 
   return (
@@ -40,7 +60,10 @@ function Page() {
 
     <div className='bg-gray-100 flex gap-2 w-full rounded-lg p-1.5 shadow-sm border items-center text-gray-600'>
         <FaSearch/>
-        <input className='bg-transparent w-full outline-none border-none' placeholder='Search' type="text"/>
+        <input
+        value={search}
+        onChange={handleSearch}
+        className='bg-transparent w-full outline-none border-none' placeholder='Search' type="text"/>
     </div>
 
     <table className=' space-y-2 table-auto w-full'>

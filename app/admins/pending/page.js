@@ -8,11 +8,14 @@ import {FaHome, FaSearch} from "react-icons/fa";
 function Page() {
 
     const [pendingChallengers, setPendingChallengers] = useState([])
+    const [search, setSearch] = useState('');
+    const [originalChallengers, setOriginalChallengers] = useState([]);
 
     const getPaidChallenger = async ()=>{
         try {
             const res = await axios.get('/api/NotDelivered')
             const data = res.data
+            setOriginalChallengers(data)
             setPendingChallengers(data)
 
         } catch (error) {
@@ -24,6 +27,23 @@ function Page() {
     useEffect(()=>{
         getPaidChallenger();
     },[])
+
+    const handleSearch = (e) => {
+        const term = e.target.value.toLowerCase();
+        setSearch(term);
+
+        if (term === '') {
+          // Reset to the original data when the search term is empty
+          setPendingChallengers(originalChallengers);
+        } else {
+          const filtered = originalChallengers.filter(
+            (challenger) =>
+              challenger.name.toLowerCase().includes(term) ||
+              challenger.mobile.toString().includes(term) // Convert mobile to a string
+          );
+          setPendingChallengers(filtered);
+        }
+      };
 
 
   return (
@@ -40,7 +60,11 @@ function Page() {
 
     <div className='bg-gray-100 flex gap-2 w-full rounded-lg p-1.5 shadow-sm border items-center text-gray-600'>
         <FaSearch/>
-        <input className='bg-transparent w-full outline-none border-none' placeholder='Search' type="text"/>
+        <input
+        type="text"
+        onChange={handleSearch}
+        value={search}
+        className='bg-transparent w-full outline-none border-none' placeholder='Search' />
     </div>
 
     <table className=' space-y-2 table-auto w-full'>

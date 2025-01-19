@@ -8,13 +8,15 @@ function Page() {
   const [challengers, setChallengers] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [selectedChallenger, setSelectedChallenger] = useState(null);
+  const [Search, setSearch] = useState('');
+  const [originalChallengers, setoriginalChallengers] = useState([]);
 
   // Fetch data from the server
   const getChallengersData = async () => {
     try {
-      const res = await axios.get('/api/formsubmition');
+      const res = await axios.get('/api/formsubmission');
       const data = res.data;
-      console.log(data);
+      setoriginalChallengers(data);
       setChallengers(data);
     } catch (error) {
       console.log('Failed to get Challengers Data', error);
@@ -36,7 +38,7 @@ function Page() {
     e.preventDefault();
 
     try {
-      const res = await axios.put('/api/formsubmition', {
+      const res = await axios.put('/api/formsubmission', {
         _id: selectedChallenger._id,
         paid: selectedChallenger.paid,
         Delivered: selectedChallenger.Delivered,
@@ -62,6 +64,23 @@ function Page() {
     setSelectedChallenger({ ...selectedChallenger, [name]: newValue });
   };
 
+  const handleSearch = (e) => {
+    const term = e.target.value.toLowerCase();
+    setSearch(term);
+
+    if (term === '') {
+      // Reset to the original data when the search term is empty
+      setChallengers(originalChallengers);
+    } else {
+      const filtered = originalChallengers.filter(
+        (challenger) =>
+          challenger.name.toLowerCase().includes(term) ||
+          challenger.mobile.toString().includes(term) // Convert mobile to a string
+      );
+      setChallengers(filtered);
+    }
+  };
+
   return (
     <div className='flex flex-col min-h-screen bg-white space-y-8 px-8 py-10'>
         <Link href={'/admins'} className='flex gap-1 items-baseline'>
@@ -71,13 +90,17 @@ function Page() {
       <div className=''>
         <p>Date Challenge</p>
         <h1 className='font-semibold text-3xl leading-8'>
-          Submition <br /> Summary
+          Submission <br /> Summary
         </h1>
       </div>
 
       <div className='bg-gray-100 flex gap-2 w-full rounded-lg p-1.5 shadow-sm border items-center text-gray-600'>
         <FaSearch />
-        <input className='bg-transparent w-full outline-none border-none' placeholder='Search' type='text' />
+        <input
+        type="text"
+        value={Search}
+        onChange={handleSearch}
+        className='bg-transparent w-full outline-none border-none' placeholder='Search' />
       </div>
 
       <table className='space-y-2 table-auto w-full'>

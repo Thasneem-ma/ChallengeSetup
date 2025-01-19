@@ -22,7 +22,7 @@ function RegForm() {
 
     try {
 
-      const res = await axios.post('/api/formsubmition',{
+      const res = await axios.post('/api/formsubmission',{
         name: challenger.name,
         mobile: challenger.mobile,
         whatsapp: challenger.whatsapp,
