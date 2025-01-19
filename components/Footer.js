@@ -9,7 +9,7 @@ function Footer() {
   return (
     <div className='md:px-56 px-10 py-10 flex justify-between items-center '>
       <div>
-        <Image src={font} sizes='100%' className='w-[30%] ' loading='lazy' quality={100} alt='ssf' />
+        <Image src={font} sizes='100kv' className='w-[30%] ' width={0} height={0} alt='ssf' />
         <h1 className='font-extrabold text-base md:text-lg uppercase'>Meenja Sector</h1>
       </div>
       <div className='flex gap-1 items-center'>
