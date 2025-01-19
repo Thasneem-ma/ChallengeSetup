@@ -36,12 +36,12 @@ export async function GET(){
 
 export async function PUT(request){
     try {
-        const {name,mobile,whatsapp,address,kg} = await request.json();
-        if(!name || !mobile || !address || !kg){
+        const {_id,paid,Delivered,kg} = await request.json();
+        if(!_id){
             return NextResponse.json({message: 'Invalid input'}, {status: 400})
         }
 
-        await Challenger.updateOne({name}, {mobile,whatsapp,address,kg});
+        await Challenger.updateOne({_id}, {paid, Delivered,kg});
         return NextResponse.json({message: 'Successfully updated the db', status: 200});
 
     } catch (error) {

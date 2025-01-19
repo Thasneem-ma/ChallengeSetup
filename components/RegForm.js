@@ -55,13 +55,13 @@ function RegForm() {
     className='flex flex-col px-8 space-y-4 pb-6'>
 
       <div className='flex flex-col border p-2 rounded-lg'>
-        <label htmlFor="name" className=''>Name</label>
+        <label htmlFor="name" className=''>Name *</label>
         <input type="text" id="name" value={challenger.name} onChange={(e)=> setChallenger({...challenger, name: e.target.value})} className='bg-gray-100 outline-none p-1 py-2 font-medium' />
       </div>
 
       <div className='flex flex-col border p-2 rounded-lg'>
-        <label htmlFor="name" className=''>Mobile Number</label>
-        <input type="number" value={challenger.mobile} onChange={(e)=> setChallenger({...challenger, mobile: e.target.value})} id="name" className='bg-gray-100 outline-none p-1 py-2 font-medium' />
+        <label htmlFor="name" className=''>Mobile Number *</label>
+        <input type="number" required value={challenger.mobile} onChange={(e)=> setChallenger({...challenger, mobile: e.target.value})} id="name" className='bg-gray-100 outline-none p-1 py-2 font-medium' />
       </div>
 
       <div className='flex flex-col border p-2 rounded-lg'>
@@ -70,8 +70,8 @@ function RegForm() {
       </div>
 
       <div className='flex flex-col border p-2 rounded-lg'>
-        <label htmlFor="name" className=''>Address</label>
-        <textarea value={challenger.address} onChange={(e)=> setChallenger({...challenger, address:e.target.value})} type="" id="name" className='bg-gray-100 outline-none p-1 py-2' />
+        <label htmlFor="name" className=''>Address *</label>
+        <textarea required value={challenger.address} onChange={(e)=> setChallenger({...challenger, address:e.target.value})} type="" id="name" className='bg-gray-100 outline-none p-1 py-2' />
       </div>
 
     <div className='grid grid-cols-2 gap-4'>
@@ -88,8 +88,8 @@ function RegForm() {
     </div>
 
       <div className='flex flex-col border p-2 rounded-lg'>
-        <label htmlFor="name" className=''>No of KG</label>
-        <input value={challenger.kg} onChange={(e)=> setChallenger({...challenger, kg: e.target.value})} type="text" id="name" className='bg-gray-100 outline-none p-1 py-2 font-medium' />
+        <label htmlFor="name" className=''>No of KG *</label>
+        <input required value={challenger.kg} onChange={(e)=> setChallenger({...challenger, kg: e.target.value})} type="text" id="name" className='bg-gray-100 outline-none p-1 py-2 font-medium' />
       </div>
 
 
