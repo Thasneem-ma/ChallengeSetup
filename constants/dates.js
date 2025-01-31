@@ -1,5 +1,5 @@
 export const prices = {
-    retail: 450,
+    retail: 300,
     wholesale: 300,
-    challenge: 500,
+    challenge: 400,
 }
