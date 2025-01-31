@@ -78,11 +78,11 @@ function RegForm() {
 
       <div className='bg-black text-white p-1.5 rounded'>
         <h1>Price For 1 Kg</h1>
-        <p className='font-semibold text-lg'>500/-</p>
+        <p className='font-semibold text-lg'>400/-</p>
       </div>
       <div className='bg-black text-white p-1.5 rounded'>
-        <h1>Price For 5 Kg</h1>
-        <p className='font-semibold text-lg'>1000/-</p>
+        <h1>Price For 3 Kg</h1>
+        <p className='font-semibold text-lg'>1100/-</p>
       </div>
 
     </div>
