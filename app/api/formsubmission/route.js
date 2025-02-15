@@ -12,6 +12,13 @@ export  async function POST (request){
         return NextResponse.json({message: 'Invalid input'}, {status: 400})
     }
 
+    const OldChallenger = await Challenger.findOne({mobile});
+
+    if (OldChallenger) {
+        await Challenger.updateOne({mobile}, {name,whatsapp,address,kg});
+        return NextResponse.json({message: 'Successfully updated to db', status: 201});
+    }
+
     await Challenger.create({name,mobile,whatsapp,address,kg});
 
     return NextResponse.json({message: 'Successfully uploaded to db', status: 201})

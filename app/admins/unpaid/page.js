@@ -11,16 +11,16 @@ function Page () {
 
     const price = prices.challenge
 
-    const [paidChallengers, setPaidChallengers] = useState([])
+    const [unPaidChallengers, setUnPaidChallengers] = useState([])
     const [originalPaidChallengers, setOriginalPaidChallengers] = useState([])
     const [search, setSearch] = useState('');
 
     const getPaidChallenger = async ()=>{
         try {
-            const res = await axios.get('/api/paidChallenger')
+            const res = await axios.get('/api/UnpaidChallenger')
             const data = res.data
             setOriginalPaidChallengers(data)
-            setPaidChallengers(data)
+            setUnPaidChallengers(data)
 
         } catch (error) {
             console.log('failed to fetch paid challengers data',error);
@@ -38,14 +38,14 @@ function Page () {
 
         if (term === '') {
           // Reset to the original data when the search term is empty
-          setPaidChallengers(originalPaidChallengers);
+          setUnPaidChallengers(originalPaidChallengers);
         } else {
           const filtered = originalPaidChallengers.filter(
             (challenger) =>
               challenger.name.toLowerCase().includes(term) ||
               challenger.mobile.toString().includes(term) // Convert mobile to a string
           );
-          setPaidChallengers(filtered);
+          setUnPaidChallengers(filtered);
         }
       };
 
@@ -60,7 +60,7 @@ function Page () {
 
     <div className=" ">
     <p>Date Challenge</p>
-    <h1 className="font-semibold text-3xl leading-8">Submission <br /> Summary</h1>
+    <h1 className="font-semibold text-3xl leading-8">Payment <br /> Pending</h1>
     </div>
 
     <div className='bg-gray-100 flex gap-2 w-full rounded-lg p-1.5 shadow-sm border items-center text-gray-600'>
@@ -83,7 +83,7 @@ function Page () {
         </thead>
             <tbody>
 
-        {paidChallengers.length > 0 && paidChallengers.map((data,i) => (
+        {unPaidChallengers.length > 0 && unPaidChallengers.map((data,i) => (
 
             <tr className=" text-[10pt] font-medium pb-1" key={i}>
             <td className=''>{i+1}</td>

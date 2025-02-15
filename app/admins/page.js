@@ -184,7 +184,7 @@ function Page() {
             const data = res.data;
             setChallengers(data);
 
-            const countOfPaid = data.filter((item) => item.paid === true).length;
+            const countOfPaid = data.filter((item) => item.paid === false).length;
             setPaid(countOfPaid);
 
             const countOfDelivered = data.filter((item) => item.Delivered === true).length;
@@ -254,9 +254,9 @@ function Page() {
                     </Link>
                 </div>
                 <div className='bg-black text-white rounded-lg p-2 pl-3'>
-                    <p className='text-lg leading-5'>Paid Submissions</p>
+                    <p className='text-lg leading-5'>Payment Pending</p>
                     <p className='font-semibold text-4xl'>{paid}</p>
-                    <Link href={'/admins/paid'} className='flex gap-1 text-sm items-center mt-2'>
+                    <Link href={'/admins/unpaid'} className='flex gap-1 text-sm items-center mt-2'>
                         <FaRegEye />
                         <p>View</p>
                     </Link>
